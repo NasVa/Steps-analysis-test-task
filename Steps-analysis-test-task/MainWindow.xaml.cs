@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -24,7 +25,9 @@ namespace Steps_analysis_test_task
         public MainWindow()
         {
             InitializeComponent();
-
+            var usersInfo = new ObservableCollection<User>();
+            InfoGrid.ItemsSource = usersInfo;
+            DataContext = new InfoReader(usersInfo, new FileGetInfo());
         }
     }
 }

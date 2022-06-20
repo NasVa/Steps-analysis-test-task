@@ -1,6 +1,7 @@
 ﻿using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -13,13 +14,13 @@ namespace Steps_analysis_test_task
     {
         public RelayCommand relayCommand { get; private set; }
         public event PropertyChangedEventHandler PropertyChanged;
-        private List<User> infoList;
+        private ObservableCollection<User> infoList;
         private IGetInfo fileInfoGetter;
 
-        public InfoReader(IGetInfo infoGetter)
+        public InfoReader(ObservableCollection<User> list, IGetInfo infoGetter)
         {
             relayCommand = new RelayCommand(OpenHandler);
-            this.infoList = new List<User>();
+            this.infoList = list;
             fileInfoGetter = infoGetter;
         }
 
@@ -32,12 +33,12 @@ namespace Steps_analysis_test_task
         public void OpenHandler(object param)
         {
             OpenFileDialog dialog = new OpenFileDialog();
-            dialog.Filter = "*.json";
+            dialog.Filter = "(*.json)|*.json";
             dialog.Multiselect = true;
             if (dialog.ShowDialog() == true)
             {
-                foreach (string fileName in dialog.FileNames)
-                    infoList.AddRange(fileInfoGetter.GetInfoFromFile(fileName));
+                infoList.Clear();
+                infoList = fileInfoGetter.GetInfoFromFile(dialog.FileNames);
                 OnPropertyChanged();
             }
         }
