@@ -25,9 +25,12 @@ namespace Steps_analysis_test_task
         public MainWindow()
         {
             InitializeComponent();
-            var usersInfo = new ObservableCollection<User>();
-            InfoGrid.ItemsSource = usersInfo;
-            DataContext = new InfoReader(usersInfo, new FileGetInfo());
+            var infoList = new ObservableCollection<User>();
+            InfoGrid.ItemsSource = infoList;
+            DataContext = new InfoReader(infoList, new FileGetInfo());
         }
+
+        
+
     }
 }

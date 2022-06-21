@@ -7,21 +7,16 @@
         xmlns:local="clr-namespace:Steps_analysis_test_task"
         mc:Ignorable="d"
         Title="Steps analysis" Height="500" Width="800" MinHeight="350" MinWidth="800" Background="#9CB6CB" WindowStartupLocation="CenterScreen">
+
     <Grid x:Name="layoutGrid" Background="AntiqueWhite">
             <StackPanel>
                 <Controls:Tile Content="Open file" Foreground="White" FontSize="16px" BorderBrush="AntiqueWhite" 
                Margin="330,4,331.6,395" FontWeight="DemiBold"
                Background="Teal" Height="27" Width="130" Command="{Binding relayCommand}" />
             </StackPanel>
-        <ListView x:Name="InfoGrid" Margin="50,50,332,50" ItemsSource="{Binding infoList, UpdateSourceTrigger=PropertyChanged}">
-                <ListView.View>
-                    <GridView>
-                        <GridViewColumn DisplayMemberBinding="{Binding Path=Name}">ФИО</GridViewColumn>
-                        <GridViewColumn DisplayMemberBinding="{Binding Path=averageNumSteps}">Средн. кол-во шагов</GridViewColumn>
-                        <GridViewColumn DisplayMemberBinding="{Binding Path=bestResult}">Лучший результат</GridViewColumn>
-                        <GridViewColumn DisplayMemberBinding="{Binding Path=worstResult}">Худший результат</GridViewColumn>
-                    </GridView>
-                </ListView.View>
-        </ListView>
+
+        <DataGrid x:Name ="InfoGrid" Margin="50,50,332,50" AutoGenerateColumns="True" ItemsSource="{Binding GridItems}">
+            
+        </DataGrid>
     </Grid>
 </mah:MetroWindow>

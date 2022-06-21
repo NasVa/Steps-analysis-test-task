@@ -10,16 +10,23 @@ using System.Threading.Tasks;
 
 namespace Steps_analysis_test_task
 {
+
+
     public class InfoReader : INotifyPropertyChanged
     {
         public RelayCommand relayCommand { get; private set; }
         public event PropertyChangedEventHandler PropertyChanged;
+        //private ObservableCollection<User> infoList;
         private ObservableCollection<User> infoList;
+        
         private IGetInfo fileInfoGetter;
+
+        
 
         public InfoReader(ObservableCollection<User> list, IGetInfo infoGetter)
         {
             relayCommand = new RelayCommand(OpenHandler);
+            
             this.infoList = list;
             fileInfoGetter = infoGetter;
         }
@@ -37,9 +44,20 @@ namespace Steps_analysis_test_task
             dialog.Multiselect = true;
             if (dialog.ShowDialog() == true)
             {
+                foreach (var inf in infoList)
+                {
+                    inf.calculateCurrentAnalysis();
+                }
                 infoList.Clear();
-                infoList = fileInfoGetter.GetInfoFromFile(dialog.FileNames);
-                OnPropertyChanged();
+                ObservableCollection<User> list = fileInfoGetter.GetInfoFromFile(dialog.FileNames);
+                foreach (var i in list)
+                {
+                    infoList.Add(i);
+                }
+                foreach (var inf in infoList)
+                {
+                    inf.calculateCurrentAnalysis();
+                }
             }
         }
     }
