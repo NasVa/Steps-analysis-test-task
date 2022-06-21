@@ -111,6 +111,19 @@ namespace Steps_analysis_test_task
             plotModel.InvalidatePlot(true);
         }
 
+        public List<int> updateTableColors(DataGrid gd)
+        {
+            List<int> nums = new List<int>();
+            int i = 0;
+            foreach (User row in gd.Items)
+            {
+                if (UsersList.isDifferent20(SelectedUser.averageNumSteps, (int)(row.bestResult), (int)(row.worstResult))){
+                    nums.Add(i);
+                }
+                i++;
+            }
+            return nums;
+        }
         public void OpenHandler(object param)
         {
             OpenFileDialog dialog = new OpenFileDialog();
@@ -118,10 +131,6 @@ namespace Steps_analysis_test_task
             dialog.Multiselect = true;
             if (dialog.ShowDialog() == true)
             {
-                foreach (var inf in infoList)
-                {
-                    inf.calculateCurrentAnalysis();
-                }
                 infoList.Clear();
                 ObservableCollection<User> list = fileInfoGetter.GetInfoFromFile(dialog.FileNames);
                 foreach (var i in list)

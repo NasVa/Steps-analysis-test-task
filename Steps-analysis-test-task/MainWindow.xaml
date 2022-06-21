@@ -16,7 +16,7 @@
                Background="Teal" Height="27" Width="130" Command="{Binding relayCommand}" />
             </StackPanel>
 
-        <DataGrid x:Name ="InfoGrid" Margin="50,50,332,50" AutoGenerateColumns="True" SelectionMode="Single" ItemsSource="{Binding Path=DataContext.GridItems}" SelectedItem="{Binding Path=SelectedUser}" SelectionChanged="InfoGrid_SelectionChanged">
+        <DataGrid x:Name ="InfoGrid" Margin="50,50,332,50" AutoGenerateColumns="True" SelectionMode="Single" ItemsSource="{Binding Path=DataContext.GridItems}" SelectedItem="{Binding Path=SelectedUser}" SelectionChanged="InfoGrid_SelectionChanged" VirtualizingStackPanel.IsVirtualizing="False">
 
         </DataGrid>
         <oxy:PlotView Name="Plot"  Margin="500,100,50,150" Model="{Binding plotModel}"/>

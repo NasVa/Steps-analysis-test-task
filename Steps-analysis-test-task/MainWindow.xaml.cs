@@ -36,8 +36,6 @@ namespace Steps_analysis_test_task
 
         }
 
-  
-
         private void InfoGrid_SelectionChanged_1(object sender, SelectionChangedEventArgs e)
         {
             DataGrid gd = (DataGrid)sender;
@@ -50,6 +48,20 @@ namespace Steps_analysis_test_task
             DataGrid gd = (DataGrid)sender;
             DataRowView row = gd.SelectedItem as DataRowView;
             infoReader.updateGraphic(row);
+            List<int> nums = infoReader.updateTableColors(gd);
+            for (int i = 0; i < gd.Items.Count; i++)
+            {
+                DataGridRow dataGridRow = (DataGridRow)gd.ItemContainerGenerator.ContainerFromIndex(i);
+                dataGridRow.Background = Brushes.White;
+            }
+            for (int i = 0; i < nums.Count; i++)
+            {
+                DataGridRow dataGridRow = (DataGridRow)gd.ItemContainerGenerator.ContainerFromIndex(nums[i]);
+                //if (dataGridRow != null)
+                //{
+                      dataGridRow.Background = Brushes.PaleGreen;
+                //}
+            }
         }
     }
 }

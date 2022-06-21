@@ -45,12 +45,12 @@ namespace Steps_analysis_test_task
                 if (user == null)
                 {
                     user = new User(JObject.Parse(json)["User"].ToString());
+                    userList.Add(user);
                 }
                 user.addDayinfo(day,
                     Int32.Parse(JObject.Parse(json)["Rank"].ToString()),
                     JObject.Parse(json)["Status"].ToString(),
                     Int32.Parse(JObject.Parse(json)["Steps"].ToString()));
-                userList.Add(user);
                 cur = cur.Next;
             }
                     
