@@ -89,6 +89,7 @@ namespace Steps_analysis_test_task
 
         public void updateGraphic(DataRowView row)
         {
+            plotModel.Series.Clear();
             //SelectedUser = fileGetInfo.findUserByName(SelectedUser.name);
             List<DataPoint> ListOfPoints = new List<DataPoint>();
             foreach(var steps in UsersList.getDoubleArraySteps(SelectedUser))
