@@ -8,7 +8,6 @@ namespace Steps_analysis_test_task
 {
     public class User
     {
-
         public struct dayInfo {
             public int day;
             public int rank;

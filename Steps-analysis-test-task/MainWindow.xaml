@@ -5,6 +5,7 @@
         xmlns:mah="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Steps_analysis_test_task"
+        xmlns:oxy="http://oxyplot.org/wpf"
         mc:Ignorable="d"
         Title="Steps analysis" Height="500" Width="800" MinHeight="350" MinWidth="800" Background="#9CB6CB" WindowStartupLocation="CenterScreen">
 
@@ -15,8 +16,10 @@
                Background="Teal" Height="27" Width="130" Command="{Binding relayCommand}" />
             </StackPanel>
 
-        <DataGrid x:Name ="InfoGrid" Margin="50,50,332,50" AutoGenerateColumns="True" ItemsSource="{Binding GridItems}">
-            
+        <DataGrid x:Name ="InfoGrid" Margin="50,50,332,50" AutoGenerateColumns="True" SelectionMode="Single" ItemsSource="{Binding Path=DataContext.GridItems}" SelectedItem="{Binding Path=SelectedUser}" SelectionChanged="InfoGrid_SelectionChanged">
+
         </DataGrid>
+        <oxy:PlotView Name="Plot"  Margin="500,100,50,150" Model="{Binding plotModel}"/>
+
     </Grid>
 </mah:MetroWindow>

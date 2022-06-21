@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,15 +23,33 @@ namespace Steps_analysis_test_task
     /// </summary>
     public partial class MainWindow : MetroWindow
     {
+        InfoReader infoReader;
         public MainWindow()
         {
             InitializeComponent();
             var infoList = new ObservableCollection<User>();
             InfoGrid.ItemsSource = infoList;
-            DataContext = new InfoReader(infoList, new FileGetInfo());
+            infoReader = new InfoReader(infoList, new FileGetInfo());
+            DataContext = infoReader;
+
+
+
         }
 
-        
+  
 
+        private void InfoGrid_SelectionChanged_1(object sender, SelectionChangedEventArgs e)
+        {
+            DataGrid gd = (DataGrid)sender;
+            DataRowView row = gd.SelectedItem as DataRowView;
+            
+        }
+
+        private void InfoGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            DataGrid gd = (DataGrid)sender;
+            DataRowView row = gd.SelectedItem as DataRowView;
+            infoReader.updateGraphic(row);
+        }
     }
 }

@@ -21,14 +21,6 @@ namespace Steps_analysis_test_task
             foreach (string fileName in fileNames)
             {
                 getInfo(JToken.Parse(File.ReadAllText(@fileName)), Int32.Parse(fileName.Substring(fileName.LastIndexOf('y') + 1).Split('.')[0]));
-
-
-                // read JSON directly from a file
-                //using (StreamReader file = File.OpenText(@fileName)) 
-                //using (JsonTextReader reader = new JsonTextReader(file))
-                //{
-                //    JObject o2 = (JObject)JToken.ReadFrom(reader);
-                //}
             }
             return userList;
         }
