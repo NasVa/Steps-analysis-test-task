@@ -8,24 +8,18 @@
         xmlns:oxy="http://oxyplot.org/wpf"
         mc:Ignorable="d"
         Title="Steps analysis" Height="500" Width="800" MinHeight="350" MinWidth="800" Background="#9CB6CB" WindowStartupLocation="CenterScreen">
-
     <Grid x:Name="layoutGrid" Background="AntiqueWhite">
-            <StackPanel>
-                <Controls:Tile Content="Open file" Foreground="White" FontSize="16px" BorderBrush="AntiqueWhite" 
-               Margin="150,4,331.6,395" FontWeight="DemiBold"
-               Background="Teal" Height="27" Width="130" Command="{Binding relayCommand}" />
-            
+        <StackPanel>
+            <Controls:Tile Content="Open file" Foreground="White" FontSize="16px" BorderBrush="AntiqueWhite" 
+                Margin="150,4,331.6,395" FontWeight="DemiBold"
+                Background="Teal" Height="27" Width="130" Command="{Binding relayCommand}" />
         </StackPanel>
         <StackPanel>
             <Controls:Tile Content="Export data" Foreground="White" FontSize="16px" BorderBrush="AntiqueWhite" 
-               Margin="450,4,150,395" FontWeight="DemiBold"
-               Background="Teal" Height="27" Width="130" Command="{Binding delegateCommand}" />
-
+                Margin="450,4,150,395" FontWeight="DemiBold"
+                Background="Teal" Height="27" Width="130" Command="{Binding delegateCommand}" />
         </StackPanel>
-
-        <DataGrid x:Name ="InfoGrid" Margin="50,50,332,50" AutoGenerateColumns="True" SelectionMode="Single" ItemsSource="{Binding Path=DataContext.GridItems}" SelectedItem="{Binding Path=SelectedUser}" SelectionChanged="InfoGrid_SelectionChanged" VirtualizingStackPanel.IsVirtualizing="False">
-
-        </DataGrid>
+        <DataGrid x:Name ="InfoGrid" Margin="50,50,332,50" AutoGenerateColumns="True" SelectionMode="Single" ItemsSource="{Binding Path=DataContext.GridItems}" SelectedItem="{Binding Path=SelectedUser}" SelectionChanged="InfoGrid_SelectionChanged" VirtualizingStackPanel.IsVirtualizing="False"/>
         <oxy:PlotView Name="Plot"  Margin="500,100,50,150" Model="{Binding plotModel}"/>
 
     </Grid>

@@ -7,6 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace Steps_analysis_test_task
 {
@@ -20,7 +21,13 @@ namespace Steps_analysis_test_task
             userList = new ObservableCollection<User>();
             foreach (string fileName in fileNames)
             {
-                getInfo(JToken.Parse(File.ReadAllText(@fileName)), Int32.Parse(fileName.Substring(fileName.LastIndexOf('y') + 1).Split('.')[0]));
+                try
+                {
+                    getInfo(JToken.Parse(File.ReadAllText(@fileName)), Int32.Parse(fileName.Substring(fileName.LastIndexOf('y') + 1).Split('.')[0]));
+                }
+                catch (FormatException e){
+                    MessageBox.Show("Ошибка чтения файла " + fileName);
+                }
             }
             return userList;
         }

@@ -37,7 +37,6 @@ namespace Steps_analysis_test_task
             {   
                 this.selectedUser = value;
                 this.OnPropertyChanged("SelectedUser");
-                
             }
         }
 
@@ -69,7 +68,6 @@ namespace Steps_analysis_test_task
                 }
         }
         
-
         public InfoReader(ObservableCollection<User> list, IGetInfo infoGetter)
         {
             relayCommand = new RelayCommand(OpenHandler);
