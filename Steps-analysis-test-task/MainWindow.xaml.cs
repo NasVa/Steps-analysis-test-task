@@ -33,7 +33,6 @@ namespace Steps_analysis_test_task
             DataContext = infoReader;
 
 
-
         }
 
         private void InfoGrid_SelectionChanged_1(object sender, SelectionChangedEventArgs e)
@@ -57,10 +56,7 @@ namespace Steps_analysis_test_task
             for (int i = 0; i < nums.Count; i++)
             {
                 DataGridRow dataGridRow = (DataGridRow)gd.ItemContainerGenerator.ContainerFromIndex(nums[i]);
-                //if (dataGridRow != null)
-                //{
-                      dataGridRow.Background = Brushes.PaleGreen;
-                //}
+                dataGridRow.Background = Brushes.PaleGreen;
             }
         }
     }

@@ -1,4 +1,6 @@
 ﻿using Microsoft.Win32;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using OxyPlot;
 using OxyPlot.Axes;
 using OxyPlot.Series;
@@ -8,6 +10,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Data;
+using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -21,9 +24,9 @@ namespace Steps_analysis_test_task
     public class InfoReader : INotifyPropertyChanged
     {
         public RelayCommand relayCommand { get; private set; }
+        public DelegateCommand delegateCommand { get; private set; }
         public event PropertyChangedEventHandler PropertyChanged;
         private ObservableCollection<User> infoList;
-        private FileGetInfo fileGetInfo;
         private IGetInfo fileInfoGetter;
 
         private User selectedUser;
@@ -53,9 +56,24 @@ namespace Steps_analysis_test_task
             }
         }
 
+        public void ExportData(object param)
+        {
+            JObject o = (JObject)JToken.FromObject(SelectedUser);
+            SaveFileDialog dialog = new SaveFileDialog();
+            dialog.Filter = "(*.json)|*.json";
+            if (dialog.ShowDialog() == true)
+                using (StreamWriter file = File.CreateText(@dialog.FileName))
+                using (JsonTextWriter writer = new JsonTextWriter(file))
+                {
+                    o.WriteTo(writer);
+                }
+        }
+        
+
         public InfoReader(ObservableCollection<User> list, IGetInfo infoGetter)
         {
             relayCommand = new RelayCommand(OpenHandler);
+            delegateCommand = new DelegateCommand(ExportData);
             this.infoList = list;
             fileInfoGetter = infoGetter;
             var signalAxis = new CategoryAxis()
@@ -90,7 +108,6 @@ namespace Steps_analysis_test_task
         public void updateGraphic(DataRowView row)
         {
             plotModel.Series.Clear();
-            //SelectedUser = fileGetInfo.findUserByName(SelectedUser.name);
             List<DataPoint> ListOfPoints = new List<DataPoint>();
             foreach(var steps in UsersList.getDoubleArraySteps(SelectedUser))
             {

@@ -7,7 +7,7 @@ using System.Windows.Input;
 
 namespace Steps_analysis_test_task
 {
-    class DelegateCommand : ICommand
+    public class DelegateCommand : ICommand
     {
         private Action<object> execute;
         private Func<object, bool> canExecute;

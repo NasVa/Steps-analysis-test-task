@@ -12,9 +12,16 @@
     <Grid x:Name="layoutGrid" Background="AntiqueWhite">
             <StackPanel>
                 <Controls:Tile Content="Open file" Foreground="White" FontSize="16px" BorderBrush="AntiqueWhite" 
-               Margin="330,4,331.6,395" FontWeight="DemiBold"
+               Margin="150,4,331.6,395" FontWeight="DemiBold"
                Background="Teal" Height="27" Width="130" Command="{Binding relayCommand}" />
-            </StackPanel>
+            
+        </StackPanel>
+        <StackPanel>
+            <Controls:Tile Content="Export data" Foreground="White" FontSize="16px" BorderBrush="AntiqueWhite" 
+               Margin="450,4,150,395" FontWeight="DemiBold"
+               Background="Teal" Height="27" Width="130" Command="{Binding delegateCommand}" />
+
+        </StackPanel>
 
         <DataGrid x:Name ="InfoGrid" Margin="50,50,332,50" AutoGenerateColumns="True" SelectionMode="Single" ItemsSource="{Binding Path=DataContext.GridItems}" SelectedItem="{Binding Path=SelectedUser}" SelectionChanged="InfoGrid_SelectionChanged" VirtualizingStackPanel.IsVirtualizing="False">
 
