@@ -23,13 +23,13 @@ namespace Steps_analysis_test_task
     /// </summary>
     public partial class MainWindow : MetroWindow
     {
-        InfoReader infoReader;
+        ModelView infoReader;
         public MainWindow()
         {
             InitializeComponent();
             var infoList = new ObservableCollection<User>();
             InfoGrid.ItemsSource = infoList;
-            infoReader = new InfoReader(infoList, new FileGetInfo());
+            infoReader = new ModelView(infoList, new FileGetInfo());
             DataContext = infoReader;
 
 

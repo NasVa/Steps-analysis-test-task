@@ -21,7 +21,7 @@ using System.Windows.Input;
 
 namespace Steps_analysis_test_task
 {
-    public class InfoReader : INotifyPropertyChanged
+    public class ModelView : INotifyPropertyChanged
     {
         public RelayCommand relayCommand { get; private set; }
         public DelegateCommand delegateCommand { get; private set; }
@@ -48,7 +48,6 @@ namespace Steps_analysis_test_task
             {
                 if (value != this.m_plotModel)
                 {
-
                     this.m_plotModel = value;
                     this.OnPropertyChanged("plotModel");
                 }
@@ -68,7 +67,7 @@ namespace Steps_analysis_test_task
                 }
         }
         
-        public InfoReader(ObservableCollection<User> list, IGetInfo infoGetter)
+        public ModelView(ObservableCollection<User> list, IGetInfo infoGetter)
         {
             relayCommand = new RelayCommand(OpenHandler);
             delegateCommand = new DelegateCommand(ExportData);
@@ -103,6 +102,25 @@ namespace Steps_analysis_test_task
                 PropertyChanged(this, new PropertyChangedEventArgs(prop));
         }
 
+        public Dictionary<string, DataPoint> getHighestLowestPoints(List<DataPoint> ListOfPoints)
+        {
+            var nums = new Dictionary<string, DataPoint>() {
+                 ["highest"] = new DataPoint(0,0),
+                 ["lowest"] = new DataPoint(0, int.MaxValue),
+            };
+            foreach(var point in ListOfPoints)
+            {
+                if (point.Y > nums["highest"].Y)
+                {
+                    nums["highest"] = point;
+                }
+                if (point.Y < nums["lowest"].Y)
+                {
+                    nums["lowest"] = point;
+                }
+            }
+            return nums;
+        }
         public void updateGraphic(DataRowView row)
         {
             plotModel.Series.Clear();
@@ -116,14 +134,36 @@ namespace Steps_analysis_test_task
             {
                 Color = OxyColors.Blue,
                 LineStyle = LineStyle.Solid,
-                StrokeThickness = 2
+                StrokeThickness = 2,
+                MarkerType = MarkerType.Circle,
 
             };
             foreach (DataPoint p in ListOfPoints)
             {
                 series.Points.Add(p);
             }
+            Dictionary<string, DataPoint> nums = getHighestLowestPoints(ListOfPoints);
+            var highestSeries = new LineSeries
+            {
+                Color = OxyColors.Yellow,
+                MarkerType = MarkerType.Circle,
+                LineStyle = LineStyle.Dot,
+            };
+            
+            highestSeries.Points.Add(nums["highest"]);
+
+            var lowestSeries = new LineSeries
+            {
+                Color = OxyColors.HotPink,
+                MarkerType = MarkerType.Circle,
+                LineStyle = LineStyle.Dot,
+            };
+            lowestSeries.Points.Add(nums["lowest"]);
+
+            
             plotModel.Series.Add(series);
+            plotModel.Series.Add(highestSeries);
+            plotModel.Series.Add(lowestSeries);
             plotModel.InvalidatePlot(true);
         }
 
